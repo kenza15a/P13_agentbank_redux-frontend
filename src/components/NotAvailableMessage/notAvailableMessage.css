@@ -1,0 +1,10 @@
+.main-message {
+    place-self: center;
+    align-items: center;
+    font-family: inherit;
+}
+
+.main-message h2 a {
+    color: #00bc77;
+
+}
