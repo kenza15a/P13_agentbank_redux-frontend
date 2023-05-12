@@ -1,16 +1,20 @@
 import React from "react";
-import "../../Styles/main.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Header from "../../components/Header/Header";
 import Account from "../../components/Account/Account";
-import Footer from "../../components/Footer/Footer";
 
-export default function userAccounts() {
+import Footer from "../../components/Footer/Footer";
+import { useSelector } from "react-redux";
+import EditForm from "../../components/EditForm/EditForm";
+export default function UserAccounts() {
+ // const isShown = useSelector((state) => state.edit.isShown);
+
   return (
     <>
       <Navbar />
       <div className="main bg-dark">
         <Header userName="Tony Jarvis!" />
+  
         <h2 className="sr-only">Accounts</h2>
         <Account
           title="Argent Bank Checking (x8349)"

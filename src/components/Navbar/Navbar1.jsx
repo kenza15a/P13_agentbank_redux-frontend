@@ -1,7 +1,7 @@
 import "./navbar.css";
 import logo from "../../assets/img/argentBankLogo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, setLogged } from "../../redux/slices/authSlice";
+import { logout, setLogged } from "../../store/authentification2";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 <script
@@ -11,21 +11,21 @@ import { useEffect } from "react";
 
 function Navbar() {
   const dispatch = useDispatch();
-
-  const user = useSelector((state) => state.auth.user);
+  const logginState = useSelector((state) => state.auth.isloggedIn);
+  const userMail = useSelector((state) => state.auth.formValues.user);
 
   /*To know if e are logged in or not to display
    * the button sign out
    */
-  /*useEffect(() => {
+  useEffect(() => {
     dispatch(setLogged());
-  }, [dispatch]);*/
+  }, [dispatch]);
 
   const handleSignout = () => {
     dispatch(logout());
   };
 
-  if (user) {
+  if (logginState) {
     return (
       <>
         <nav className="main-nav">
@@ -40,7 +40,7 @@ function Navbar() {
           <div>
             <Link className="main-nav-item" to="/user-page">
               <i className="fa fa-user-circle"></i>
-              {user.user}
+              {userMail}
             </Link>
             <Link
               className="main-nav-item"

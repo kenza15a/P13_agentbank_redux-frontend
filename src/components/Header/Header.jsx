@@ -1,16 +1,23 @@
 import React from "react";
-import "../../Styles/main.css";
+import "./header.css";
 import Button from "../Button/Button";
-function Header({ userName }) {
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+function Header() {
+  //const userName = useSelector((state) => state.auth.user);
+ 
+ // const dispatch = useDispatch();
+  
   return (
     <>
       <div className="header">
         <h1>
           Welcome back
           <br />
-          {userName}
+      USER
         </h1>
-        <Button buttonText="Edit name" />
+        <Button  buttonText="Edit name" />
       </div>
     </>
   );

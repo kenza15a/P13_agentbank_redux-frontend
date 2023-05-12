@@ -1,5 +1,5 @@
 import React from "react";
-import "../../Styles/main.css";
+import "./features.css";
 import Feature from "../Feature/Feature";
 import chatIcon from "../../assets/img/icon-chat.png";
 import moneyIcon from "../../assets/img/icon-money.png";

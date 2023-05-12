@@ -1,6 +1,7 @@
 import React from "react";
-import "../../Styles/main.css";
+
 import PropTypes from "prop-types";
+import "./feature.css";
 function Feature({ icon, title, description }) {
   return (
     <>
