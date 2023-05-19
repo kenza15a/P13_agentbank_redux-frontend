@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./signInForm.css";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, reset, setErrors } from "../../redux/slices/authSlice";
 
@@ -14,7 +14,7 @@ export default function SignInForm() {
   });
   const { email, password } = formData;
   const form = useSelector((state) => state.form);
-  const { user, isError, isSuccess, message } = useSelector(
+  const { user, isError, isLoadig, isSuccess, message } = useSelector(
     (state) => state.auth
   );
 
@@ -24,16 +24,19 @@ export default function SignInForm() {
       alert(message);
     }
     //200 SERVER ANSWER
-    if (isSuccess || user) {
+    if (isSuccess && user) {
       navigate("/user-page");
     }
-    if(!user){
-       //RESET each time
-    dispatch(reset()); //--> to review  
-    }
-   
+    dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
+  /* if (!user) {
+      //reset if the user is not available or the logout button is clicked
 
+      dispatch(reset()); //--> to review
+      navigate("/sign-in");
+    }
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
+*/
   const userNameField = document.getElementById("username");
   const passField = document.getElementById("password");
   const regMail =
@@ -78,6 +81,7 @@ export default function SignInForm() {
 
     if (Object.keys(errors).length > 0) {
       dispatch(setErrors(errors));
+      //AFFICHER L4ERREUR
       console.log(errors);
       navigate("/sign-in");
     } else {
@@ -87,21 +91,11 @@ export default function SignInForm() {
         alert(message);
       }
     }
+  };
 
-    // navigate("/user-page");
-  };
-  /* const handleNameChange = (e) => {
-    //userNameField.addEventListener("input", valideUserName);
-    dispatch(setUserName(e.target.value)); //we must dispatch the service login
-    // setUser({ ...user, email: e.target.value });
-  };
-  const handPasswordChange = (e) => {
-    // passField.addEventListener("input", validatePassword);
-    dispatch(setPassword(e.target.value));
-    // setUser({ ...user, password: e.target.value });
-  };
-*/
-
+  if (isLoadig) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <form onSubmit={onSubmit}>

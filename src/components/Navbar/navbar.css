@@ -19,6 +19,14 @@
     margin-right: 0.5rem;
 }
 
+button.main-nav-item {
+    text-decoration: none;
+    margin-right: 0.5rem;
+    border: none;
+    background-color: transparent;
+    font-weight: 600;
+}
+
 .main-nav-item:hover {
     text-decoration: underline;
 }

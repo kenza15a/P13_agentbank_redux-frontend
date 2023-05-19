@@ -13,12 +13,15 @@ const initialState = {
     errors: {}
 
 }
+
 // Login user middleware
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
-  
+
     try {
+        //INSTANCIER UNE VARIABLE REPONSE DE NEXT LINE
         return await authService.login(user)
-      
+        // nAVIGATE ICI SELON LA REPONSE 
+
     } catch (error) {
         const message =
             (error.response && error.response.data && error.response.data.message) ||
@@ -29,7 +32,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 })
 
 export const logout = createAsyncThunk('auth/logout', async () => {
-    await authService.logout()
+     authService.logout()
 })
 export const authSlice = createSlice({
     name: 'auth',
@@ -41,12 +44,12 @@ export const authSlice = createSlice({
             state.isError = false
             state.message = ''
         },
-        updateForm: (state, action) => {
+        /*updateForm: (state, action) => {
             state[action.payload.name] = action.payload.value;
-          },
-          setErrors: (state, action) => {
+          },*/
+        setErrors: (state, action) => {
             state.errors = action.payload;
-          }
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -80,9 +83,11 @@ export const authSlice = createSlice({
             })
             .addCase(logout.fulfilled, (state) => {
                 state.user = null
+                state.isSuccess = 'false'
+                authService.logout(user)
             })
     },
 })
 
-export const { reset,updateForm,setErrors } = authSlice.actions
+export const { reset, updateForm, setErrors } = authSlice.actions
 export default authSlice.reducer
