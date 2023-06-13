@@ -1,54 +1,57 @@
 import React, { useState, useEffect } from "react";
 import "./signInForm.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, reset, setErrors } from "../../redux/slices/authSlice";
+import Loading from "../Loading/Loading";
 
 export default function SignInForm() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    remeberMe: false,
   });
-  const { email, password } = formData;
+  const [remeberMe, setRemeberMe] = useState(false);
+
   const form = useSelector((state) => state.form);
-  const { user, isError, isLoadig, isSuccess, message } = useSelector(
+  const { user, isLoadig, message, errors } = useSelector(
     (state) => state.auth
   );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     //server answer 400 OR 404
-    if (isError) {
+    if (message.length > 0) {
       alert(message);
     }
     //200 SERVER ANSWER
-    if (isSuccess && user) {
+    if (user) {
       navigate("/user-page");
     }
     dispatch(reset());
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
-  /* if (!user) {
-      //reset if the user is not available or the logout button is clicked
+  }, [user, isLoadig, message, errors, navigate, dispatch]);
 
-      dispatch(reset()); //--> to review
-      navigate("/sign-in");
-    }
-  }, [user, isError, isSuccess, message, navigate, dispatch]);
-*/
+  //to display errors in form
+  const { email, password } = formData;
+
   const userNameField = document.getElementById("username");
   const passField = document.getElementById("password");
   const regMail =
     /(([(_)a-zA-Z0-9\.\-]{1,})(@)([a-zA-Z0-9\-]+)(\.)([a-zA-Z]{2,3})((\.)([a-z]{2,3}))?)/;
 
   const onChange = (e) => {
+    if (e.target.type === "checkbox") {
+      //
+      setRemeberMe(!remeberMe);
+    }
+
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
-  const validateForm = (formData) => {
+  const validateForm = () => {
     let errors = {};
     if (userNameField) {
       if (!userNameField.value) {
@@ -76,6 +79,7 @@ export default function SignInForm() {
     const userData = {
       email,
       password,
+      remeberMe,
     };
     //validation
 
@@ -85,16 +89,19 @@ export default function SignInForm() {
       console.log(errors);
       navigate("/sign-in");
     } else {
-      try {
+      /*
+         try {
         dispatch(login(userData));
       } catch (error) {
         alert(message);
-      }
+      }*/
+
+      dispatch(login(userData));
     }
   };
 
   if (isLoadig) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
   return (
     <>
@@ -126,7 +133,7 @@ export default function SignInForm() {
           )}
         </div>
         <div className="input-remember">
-          <input type="checkbox" id="remember-me" />
+          <input type="checkbox" id="remember-me" onChange={onChange} />
           <label htmlFor="remember-me">Remember me</label>
         </div>
         <button className="sign-in-button" type="submit">

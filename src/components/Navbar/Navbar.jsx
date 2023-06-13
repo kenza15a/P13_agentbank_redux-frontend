@@ -12,9 +12,13 @@ import { Link, useNavigate } from "react-router-dom";
 function Navbar() {
   const dispatch = useDispatch();
 
-  const { user, isSuccess } = useSelector((state) => state.auth);
-
+  const { user } = useSelector((state) => state.auth);
+  const { firstName } = useSelector((state) => state.profileSlice);
   const navigate = useNavigate();
+
+  let isConnected =
+    !!localStorage.getItem("user") || !!sessionStorage.getItem("user");
+
   /*To know if e are logged in or not to display
    * the button sign out
    */
@@ -25,28 +29,28 @@ function Navbar() {
     navigate("/homepage");
   };
   const handleUserSignIn = () => {
-    if (user ) {
+    if (user && isConnected) {
       navigate("/user-page");
     } else {
       navigate("/sign-in");
     }
   };
 
-  if (user ) {
-    return (
-      <>
-        <nav className="main-nav">
-          <a className="main-nav-logo" href="/homepage">
-            <img
-              className="main-nav-logo-image"
-              src={logo}
-              alt="Argent Bank Logo"
-            />
-            <h1 className="sr-only">Argent Bank</h1>
-          </a>
+  return (
+    <>
+      <nav className="main-nav">
+        <a className="main-nav-logo" href="/homepage">
+          <img
+            className="main-nav-logo-image"
+            src={logo}
+            alt="Argent Bank Logo"
+          />
+          <h1 className="sr-only">Argent Bank</h1>
+        </a>
+        {isConnected && (
           <div>
             <Link className="main-nav-item" to="/user-page">
-              NAME
+              {firstName}
             </Link>
             <button
               className="main-nav-item"
@@ -54,25 +58,13 @@ function Navbar() {
                 handleSignout();
               }}
             >
+              {" "}
               <i className="fa fa-user-circle"></i>
               Sign out
             </button>
           </div>
-        </nav>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <nav className="main-nav">
-          <a className="main-nav-logo" href="/homepage">
-            <img
-              className="main-nav-logo-image"
-              src={logo}
-              alt="Argent Bank Logo"
-            />
-            <h1 className="sr-only">Argent Bank</h1>
-          </a>
+        )}
+        {!isConnected && (
           <div>
             <button
               className="main-nav-item"
@@ -84,10 +76,10 @@ function Navbar() {
               Sign In
             </button>
           </div>
-        </nav>
-      </>
-    );
-  }
+        )}
+      </nav>
+    </>
+  );
 }
 
 export default Navbar;

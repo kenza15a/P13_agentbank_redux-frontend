@@ -1,28 +1,30 @@
 import axios from "axios";
+import { URL_LOGIN } from "../config";
 
-
-const apiUrl = "http://localhost:3001/api/v1/user/" //api link  to verify 
-// to treat or not
-/*async function register(email, password, firstName, lastName) {
-  return axios.post(apiUrl + "signup", {
-    email,
-    password,
-    firstName,
-    lastName
-  });
-};
-*/
 // Login user
 const login = async (userData) => {
   let user = {
     email: userData.email,
-    password: userData.password
+    password: userData.password,
+    isRemeberMe: userData.remeberMe
   }
   console.log(user);
-  const response = await axios.post(apiUrl + 'login', user)
-
+  const response = await axios.post(URL_LOGIN, user)
+  console.log(response.data.isRemeberMe);
   if (response.data) {
-    localStorage.setItem('user', JSON.stringify(response.data))
+
+    //if remeber me is checked we store token in localstorage else we store it in sessionStorage
+    let token = "";
+    if (user.isRemeberMe) {
+      token = localStorage.setItem('user', JSON.stringify(response.data.body.token))
+    } else { token = sessionStorage.setItem('user', JSON.stringify(response.data.body.token)) }
+
+    //  const token = localStorage.setItem('user', JSON.stringify(response.data.body.token))
+
+
+    if (token)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+    else delete axios.defaults.headers.common['Authorization']
     console.log(response.data)
   }
 
@@ -30,11 +32,21 @@ const login = async (userData) => {
 }
 // Logout user
 const logout = () => {
-  localStorage.removeItem('user')
+
+  //manage le remove according to the state of remeberMe
+
+  const toRemove = ['user', 'firstName', 'lastName'];
+  toRemove.forEach(key => {
+    localStorage.removeItem(key);
+  });
+
+  // Remove keys from sessionStorage
+  toRemove.forEach(key => {
+    sessionStorage.removeItem(key);
+  });
 }
 
 const authService = {
-  //register,
   login,
   logout
 

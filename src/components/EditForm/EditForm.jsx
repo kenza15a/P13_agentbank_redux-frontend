@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import "./editForm.css";
 function EditForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -9,10 +10,7 @@ function EditForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{ display: "flex", flexDirection: "column", width: "50%" }}
-    >
+    <form  className="edit-form" onSubmit={handleSubmit}>
       <label htmlFor="email">Email:</label>
       <input
         type="email"

@@ -2,19 +2,19 @@ import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Header from "../../components/Header/Header";
 import Account from "../../components/Account/Account";
-
+import Loading from "../../components/Loading/Loading";
 import Footer from "../../components/Footer/Footer";
 import { useSelector } from "react-redux";
-import EditForm from "../../components/EditForm/EditForm";
 export default function UserAccounts() {
- // const isShown = useSelector((state) => state.edit.isShown);
-
+  const { isLoading } = useSelector((state) => state.profileSlice);
   return (
     <>
       <Navbar />
+      {isLoading && <Loading />}
+
       <div className="main bg-dark">
-        <Header userName="Tony Jarvis!" />
-  
+        <Header />
+
         <h2 className="sr-only">Accounts</h2>
         <Account
           title="Argent Bank Checking (x8349)"

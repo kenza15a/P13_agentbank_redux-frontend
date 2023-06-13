@@ -19,8 +19,11 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 
     try {
         //INSTANCIER UNE VARIABLE REPONSE DE NEXT LINE
+        //const response= authService.login(user);
+        /*if(response.staus===200){
+         
+        }*/
         return await authService.login(user)
-        // nAVIGATE ICI SELON LA REPONSE 
 
     } catch (error) {
         const message =
@@ -32,7 +35,7 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 })
 
 export const logout = createAsyncThunk('auth/logout', async () => {
-     authService.logout()
+    authService.logout()
 })
 export const authSlice = createSlice({
     name: 'auth',
@@ -53,20 +56,7 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            /*   .addCase(register.pending, (state) => {
-                  state.isLoading = true
-              })
-              .addCase(register.fulfilled, (state, action) => {
-                  state.isLoading = false
-                  state.isSuccess = true
-                  state.user = action.payload
-              })
-               .addCase(register.rejected, (state, action) => {
-                    state.isLoading = false
-                    state.isError = true
-                    state.message = action.payload
-                    state.user = null
-                })*/
+
             .addCase(login.pending, (state) => {
                 state.isLoading = true
             })

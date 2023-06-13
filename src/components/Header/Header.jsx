@@ -1,24 +1,44 @@
 import React from "react";
 import "./header.css";
 import Button from "../Button/Button";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useState } from "react";
+import EditForm from "../EditForm/EditForm";
+import { getProfileData } from "../../redux/slices/profileSlice";
 function Header() {
   //const userName = useSelector((state) => state.auth.user);
- 
- // const dispatch = useDispatch();
-  
+
+  const [isVisible, setIsVisible] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProfileData());
+  }, [dispatch]);
+
+  const { firstName, lastName, isLoading, isSucces, message } = useSelector(
+    (state) => state.profileSlice
+  );
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
   return (
     <>
-      <div className="header">
-        <h1>
-          Welcome back
-          <br />
-      USER
-        </h1>
-        <Button  buttonText="Edit name" />
-      </div>
+      {
+        //isSucces && (
+        <div className="header">
+          <h1>
+            Welcome back
+            <br />
+            {firstName + " " + lastName}
+          </h1>
+          <button className="edit-button" onClick={toggleVisibility}>
+            Edit name
+          </button>
+          {/** <Button buttonText="Edit name" onClick={toggleVisibility}></Button>*/}
+          {isVisible && <EditForm />}
+        </div>
+        // )
+      }
     </>
   );
 }
