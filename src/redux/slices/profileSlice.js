@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import profileService from '../../services/profileService'
-const firstName = localStorage.getItem('firstName') || sessionStorage.getItem('firstName');
-const lastName = localStorage.getItem('lastName') || sessionStorage.getItem('lastName');
+//const firstName = localStorage.getItem('firstName') || sessionStorage.getItem('firstName');
+//const lastName = localStorage.getItem('lastName') || sessionStorage.getItem('lastName');
 const initialState = {
     firstName: '',
     lastName: '',
@@ -14,7 +14,10 @@ const initialState = {
 
 export const getProfileData = createAsyncThunk('profile/getProfileData', async (thunkAPI) => {
     try {
-        return await profileService.getUserData();
+        const reponse = await profileService.getUserData();
+
+
+        return reponse;
         // nAVIGATE ICI SELON LA REPONSE 
 
     } catch (error) {
@@ -35,11 +38,11 @@ export const profileSlice = createSlice({
     extraReducers: (builder) => {
         builder
 
-            .addCase(getProfileData.fulfilled, (state) => {
+            .addCase(getProfileData.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.firstName = firstName
-                state.lastName = lastName
+                state.firstName = action.payload.firstName
+                state.lastName = action.payload.lastName
             })
             .addCase(getProfileData.pending, (state) => {
                 state.isLoading = true
@@ -51,16 +54,12 @@ export const profileSlice = createSlice({
                 state.message = "failed"
 
             })
-        /*  .addCase(getProfileData.failed, (state) => {
-              state.profileMessage = 'faild to load profile'
 
-
-          })*/
 
     },
 
 
 })
 
-//export const { } = profileSlice.actions
+
 export default profileSlice.reducer

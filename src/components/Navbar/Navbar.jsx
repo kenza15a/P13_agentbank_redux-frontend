@@ -3,6 +3,8 @@ import logo from "../../assets/img/argentBankLogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, reset } from "../../redux/slices/authSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { getProfileData } from "../../redux/slices/profileSlice";
+import { useEffect } from "react";
 
 <script
   src="https://kit.fontawesome.com/28b2cc206f.js"
@@ -11,7 +13,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    dispatch(getProfileData());
+  }, [dispatch]);
   const { user } = useSelector((state) => state.auth);
   const { firstName } = useSelector((state) => state.profileSlice);
   const navigate = useNavigate();
@@ -58,7 +62,6 @@ function Navbar() {
                 handleSignout();
               }}
             >
-              {" "}
               <i className="fa fa-user-circle"></i>
               Sign out
             </button>

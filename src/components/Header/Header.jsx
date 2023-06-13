@@ -2,8 +2,7 @@ import React from "react";
 import "./header.css";
 import Button from "../Button/Button";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import EditForm from "../EditForm/EditForm";
 import { getProfileData } from "../../redux/slices/profileSlice";
 function Header() {
