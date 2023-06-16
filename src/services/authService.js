@@ -10,7 +10,7 @@ const login = async (userData) => {
   }
   console.log(user);
   const response = await axios.post(URL_LOGIN, user)
-  console.log(response.data.isRemeberMe);
+
   if (response.data) {
 
     //if remeber me is checked we store token in localstorage else we store it in sessionStorage
@@ -18,9 +18,6 @@ const login = async (userData) => {
     if (user.isRemeberMe) {
       token = localStorage.setItem('user', JSON.stringify(response.data.body.token))
     } else { token = sessionStorage.setItem('user', JSON.stringify(response.data.body.token)) }
-
-    //  const token = localStorage.setItem('user', JSON.stringify(response.data.body.token))
-
 
     if (token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -33,7 +30,7 @@ const login = async (userData) => {
 // Logout user
 const logout = () => {
 
-  //manage le remove according to the state of remeberMe
+  //manage the  remove according to the state of remeberMe
 
   const toRemove = ['user', 'firstName', 'lastName'];
   toRemove.forEach(key => {

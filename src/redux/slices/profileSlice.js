@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 import profileService from '../../services/profileService'
-//const firstName = localStorage.getItem('firstName') || sessionStorage.getItem('firstName');
-//const lastName = localStorage.getItem('lastName') || sessionStorage.getItem('lastName');
+
 const initialState = {
     firstName: '',
     lastName: '',
     isLoading: false,
     isSuccess: false,
-    profileMessage: ''
+    profileMessage: '',
+    isEditVisible: false
     //EROR
 }
 
@@ -18,7 +18,7 @@ export const getProfileData = createAsyncThunk('profile/getProfileData', async (
 
 
         return reponse;
-        // nAVIGATE ICI SELON LA REPONSE 
+
 
     } catch (error) {
         const message =
@@ -28,11 +28,27 @@ export const getProfileData = createAsyncThunk('profile/getProfileData', async (
         return thunkAPI.rejectWithValue(message)
     }
 });
+export const updateprofile = createAsyncThunk('profile/updateprofile', async (userData, thunkAPI) => {
+    try {
+        const reponse = await profileService.editProfile(userData);
+        return reponse;
+
+    } catch (error) {
+        const message =
+            (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString()
+
+        return thunkAPI.rejectWithValue(message)
+    }
+});
 export const profileSlice = createSlice({
     name: 'profile',
     initialState,
     reducers: {
-
+        setEditVisible: (state) => {
+            state.isEditVisible = !state.isEditVisible;
+        },
 
     },
     extraReducers: (builder) => {
@@ -51,8 +67,23 @@ export const profileSlice = createSlice({
                 state.firstName = ""
                 state.lastName = ""
                 state.isSuccess = false
-                state.message = "failed"
+                state.profileMessage = "failed"
 
+            })
+            .addCase(updateprofile.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.firstName = action.payload.firstName
+                state.lastName = action.payload.lastName
+            })
+            .addCase(updateprofile.pending, (state) => {
+                state.isLoading = true;
+                state.profileMessage = "pending...."
+                state.profileMessage = "loading.."
+            })
+            .addCase(updateprofile.rejected, (state) => {
+                state.profileMessage = "fail to update"
+                state.isLoading = false;
             })
 
 
@@ -61,5 +92,5 @@ export const profileSlice = createSlice({
 
 })
 
-
+export const { setEditVisible} = profileSlice.actions
 export default profileSlice.reducer

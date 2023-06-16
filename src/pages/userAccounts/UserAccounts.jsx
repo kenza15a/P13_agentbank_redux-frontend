@@ -1,10 +1,10 @@
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import Header from "../../components/Header/Header";
 import Account from "../../components/Account/Account";
 import Loading from "../../components/Loading/Loading";
 import Footer from "../../components/Footer/Footer";
 import { useSelector } from "react-redux";
+import AccountHeader from "../../components/AccountHeader/AccountHeader";
 export default function UserAccounts() {
   const { isLoading } = useSelector((state) => state.profileSlice);
   return (
@@ -13,7 +13,7 @@ export default function UserAccounts() {
       {isLoading && <Loading />}
 
       <div className="main bg-dark">
-        <Header />
+        <AccountHeader />
 
         <h2 className="sr-only">Accounts</h2>
         <Account

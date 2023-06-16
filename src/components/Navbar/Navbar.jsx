@@ -13,6 +13,8 @@ import { useEffect } from "react";
 
 function Navbar() {
   const dispatch = useDispatch();
+
+  //dispatch the state of firstName and LastName
   useEffect(() => {
     dispatch(getProfileData());
   }, [dispatch]);

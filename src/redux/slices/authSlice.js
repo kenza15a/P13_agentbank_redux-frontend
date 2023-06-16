@@ -18,8 +18,8 @@ const initialState = {
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 
     try {
-        //INSTANCIER UNE VARIABLE REPONSE DE NEXT LINE
-        //const response= authService.login(user);
+        
+        //Treat status senarios
         /*if(response.staus===200){
          
         }*/
@@ -47,9 +47,7 @@ export const authSlice = createSlice({
             state.isError = false
             state.message = ''
         },
-        /*updateForm: (state, action) => {
-            state[action.payload.name] = action.payload.value;
-          },*/
+
         setErrors: (state, action) => {
             state.errors = action.payload;
         }

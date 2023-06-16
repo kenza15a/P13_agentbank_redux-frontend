@@ -1,32 +1,81 @@
 import React from "react";
 import { useState } from "react";
 import "./editForm.css";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  getProfileData,
+  updateprofile,
+  setEditVisible,
+} from "../../redux/slices/profileSlice";
+import { useEffect } from "react";
 function EditForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProfileData());
+  }, [dispatch]);
+  const { firstName, lastName, isEditVisible } = useSelector(
+    (state) => state.profileSlice
+  );
+  console.log({ firstName, lastName });
+  const [formData, setFormData] = useState({
+    firstName: firstName,
+    lastName: lastName,
+  });
+
   const handleSubmit = (event) => {
+    const userData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+    };
+    console.log(userData);
     event.preventDefault();
+
+    dispatch(updateprofile(userData));
+    dispatch(getProfileData());
     //appele un dispatch
+  };
+  const onChange = (e) => {
+    console.log(e.target.value);
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const hideForm = () => {
+    dispatch(setEditVisible());
   };
 
   return (
-    <form  className="edit-form" onSubmit={handleSubmit}>
-      <label htmlFor="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-      />
-      <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      {isEditVisible && (
+        <form className="edit-form" onSubmit={handleSubmit}>
+          <div className="user-infos">
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              placeholder={firstName}
+              defaultValue={firstName}
+              onChange={onChange}
+            />
+
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder={lastName}
+              defaultValue={lastName}
+              onChange={onChange}
+            />
+          </div>
+          <div className="buttons">
+            <button type="submit">Save</button>
+            <button onClick={hideForm}>Cancel</button>
+          </div>
+        </form>
+      )}
+    </>
   );
 }
 

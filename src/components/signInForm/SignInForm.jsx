@@ -74,7 +74,7 @@ export default function SignInForm() {
     e.preventDefault();
     const errors = validateForm(form);
 
-    //treat the form validation here
+    //Treat the form validation here
 
     const userData = {
       email,
@@ -85,16 +85,11 @@ export default function SignInForm() {
 
     if (Object.keys(errors).length > 0) {
       dispatch(setErrors(errors));
-      //AFFICHER L4ERREUR
+   //display the error
       console.log(errors);
       navigate("/sign-in");
     } else {
-      /*
-         try {
-        dispatch(login(userData));
-      } catch (error) {
-        alert(message);
-      }*/
+    
 
       dispatch(login(userData));
     }
