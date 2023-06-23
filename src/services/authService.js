@@ -8,7 +8,6 @@ const login = async (userData) => {
     password: userData.password,
     isRemeberMe: userData.remeberMe
   }
-  console.log(user);
   const response = await axios.post(URL_LOGIN, user)
 
   if (response.data) {
@@ -22,7 +21,7 @@ const login = async (userData) => {
     if (token)
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     else delete axios.defaults.headers.common['Authorization']
-    console.log(response.data)
+
   }
 
   return response.data

@@ -5,11 +5,15 @@ import Loading from "../../components/Loading/Loading";
 import Footer from "../../components/Footer/Footer";
 import { useSelector } from "react-redux";
 import AccountHeader from "../../components/AccountHeader/AccountHeader";
+import { useNavigate } from "react-router-dom";
 export default function UserAccounts() {
-  const { isLoading } = useSelector((state) => state.profileSlice);
+  const navigate = useNavigate();
+  const { isLoading, updateError } = useSelector((state) => state.profileSlice);
+  
   return (
     <>
       <Navbar />
+     
       {isLoading && <Loading />}
 
       <div className="main bg-dark">

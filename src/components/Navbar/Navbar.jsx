@@ -13,17 +13,20 @@ import { useEffect } from "react";
 
 function Navbar() {
   const dispatch = useDispatch();
-
-  //dispatch the state of firstName and LastName
-  useEffect(() => {
-    dispatch(getProfileData());
-  }, [dispatch]);
-  const { user } = useSelector((state) => state.auth);
   const { firstName } = useSelector((state) => state.profileSlice);
-  const navigate = useNavigate();
-
   let isConnected =
     !!localStorage.getItem("user") || !!sessionStorage.getItem("user");
+  //dispatch the state of firstName and LastName
+  useEffect(() => {
+    if (isConnected) {
+      dispatch(getProfileData());
+    } else {
+      dispatch(reset());
+    }
+  }, [isConnected, dispatch]);
+  const { user } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
 
   /*To know if e are logged in or not to display
    * the button sign out

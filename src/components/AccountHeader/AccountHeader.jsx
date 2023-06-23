@@ -3,7 +3,10 @@ import "./AccountHeader.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import EditForm from "../EditForm/EditForm";
-import { getProfileData,setEditVisible } from "../../redux/slices/profileSlice";
+import {
+  getProfileData,
+  setEditVisible,
+} from "../../redux/slices/profileSlice";
 function AccountHeader() {
   //const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
@@ -11,10 +14,17 @@ function AccountHeader() {
     dispatch(getProfileData());
   }, [dispatch]);
 
-  const { firstName, lastName,isEditVisible } = useSelector((state) => state.profileSlice);
+  const {
+    firstName,
+    lastName,
+    isEditVisible,
+    isSuccess,
+    profileMessage,
+    isLoading,
+  } = useSelector((state) => state.profileSlice);
   const toggleVisibility = () => {
-   // setIsVisible(!isVisible);
-   dispatch(setEditVisible())
+    // setIsVisible(!isVisible);
+    dispatch(setEditVisible());
   };
   return (
     <>
@@ -23,7 +33,8 @@ function AccountHeader() {
           <h1>
             Welcome back
             <br />
-            {firstName + " " + lastName}
+            {isSuccess && firstName + " " + lastName}
+            {(!isSuccess || isLoading) && <div>loading</div>}
           </h1>
           <button className="edit-button" onClick={toggleVisibility}>
             Edit name

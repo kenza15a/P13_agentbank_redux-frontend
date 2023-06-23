@@ -8,6 +8,7 @@ const initialState = {
     isLoading: false,
     isSuccess: false,
     profileMessage: '',
+    updateError:'',
     isEditVisible: false
     //EROR
 }
@@ -25,6 +26,7 @@ export const getProfileData = createAsyncThunk('profile/getProfileData', async (
             (error.response && error.response.data && error.response.data.message) ||
             error.message ||
             error.toString()
+
         return thunkAPI.rejectWithValue(message)
     }
 });
@@ -38,7 +40,7 @@ export const updateprofile = createAsyncThunk('profile/updateprofile', async (us
             (error.response && error.response.data && error.response.data.message) ||
             error.message ||
             error.toString()
-
+       
         return thunkAPI.rejectWithValue(message)
     }
 });
@@ -48,6 +50,7 @@ export const profileSlice = createSlice({
     reducers: {
         setEditVisible: (state) => {
             state.isEditVisible = !state.isEditVisible;
+
         },
 
     },
@@ -75,14 +78,15 @@ export const profileSlice = createSlice({
                 state.isSuccess = true
                 state.firstName = action.payload.firstName
                 state.lastName = action.payload.lastName
+                state.isEditVisible = false;
             })
             .addCase(updateprofile.pending, (state) => {
                 state.isLoading = true;
-                state.profileMessage = "pending...."
-                state.profileMessage = "loading.."
+                state.updateError = "Update pending...."
+            
             })
             .addCase(updateprofile.rejected, (state) => {
-                state.profileMessage = "fail to update"
+                state.updateError = "fail to update"
                 state.isLoading = false;
             })
 
@@ -92,5 +96,5 @@ export const profileSlice = createSlice({
 
 })
 
-export const { setEditVisible} = profileSlice.actions
+export const { setEditVisible } = profileSlice.actions
 export default profileSlice.reducer

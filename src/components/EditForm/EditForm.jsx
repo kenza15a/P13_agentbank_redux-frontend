@@ -14,10 +14,10 @@ function EditForm() {
   useEffect(() => {
     dispatch(getProfileData());
   }, [dispatch]);
-  const { firstName, lastName, isEditVisible } = useSelector(
+  const { firstName, lastName, isEditVisible,isSuccess } = useSelector(
     (state) => state.profileSlice
   );
-  console.log({ firstName, lastName });
+
   const [formData, setFormData] = useState({
     firstName: firstName,
     lastName: lastName,
@@ -30,10 +30,13 @@ function EditForm() {
     };
     console.log(userData);
     event.preventDefault();
-
     dispatch(updateprofile(userData));
-    dispatch(getProfileData());
-    //appele un dispatch
+    //A eviter
+  /*if (isSuccess) {
+      dispatch(getProfileData());
+    }*/
+
+    // }
   };
   const onChange = (e) => {
     console.log(e.target.value);

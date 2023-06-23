@@ -33,6 +33,7 @@
 .account-content-wrapper {
     width: 100%;
     flex: 1;
+    background-color: #fff;
 }
 
 .transaction-button {
