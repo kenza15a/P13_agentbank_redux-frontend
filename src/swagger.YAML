@@ -1,0 +1,184 @@
+openapi: 3.0.0
+
+info:
+  title: Transactions api agent bank
+  description: the transaction part
+  version: 1.0.0
+  contact:
+    name: Filali kenza
+    email: kenza.filali.rahal@gmail.com
+
+servers:
+  - url: http://localhost:3001
+    description: HTTP server agent bank
+
+
+paths:
+   /users/{userId}/transactions:
+    get:
+      tags:
+      - user transactions
+      description: Describe this route
+      summary: get the transaction of a user 
+      parameters:
+       - name: userId
+         in: path
+         description: ID of the user
+         required: true
+         schema:
+          type: integer
+       - name: Authorization
+         in: header
+         description: Attach Bearer JWT token
+         required: true
+         schema:
+          type: string
+       - name: month
+         in: query
+         description: The month of transactions
+         required: false
+         schema:
+          type: string 
+       - name: year
+         in: query
+         description: The year of transactions
+         required: false
+         schema:
+          type: string 
+           
+      security:
+       - bearerAuth: []
+      responses:
+        '200':
+          description: Account transactions retrieved successfully
+        '400':
+         description: Bad request.
+        '401': #response with schema example
+          description:  unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                  code:
+                   type: integer
+                  message:
+                   type: string
+                  date:
+                   type: object
+        '404':
+         description: user id not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string  
+   /transactions/{transactionId}:  
+    get:
+     description: Details of a single transaction 
+     summary: get the details of a single transaction 
+     
+     parameters:
+     - name: transactionId
+       in: path
+       description: ID of the the transaction
+       required: true
+       schema:
+         type: integer
+     - name: Authorization
+       in: header
+       description: Attach Bearer JWT token
+       schema:
+         type: string
+       required: true
+    
+     responses:
+        '200':
+          description: Transaction's info  retrieved successfully
+        
+        '400':
+          description: Bad request l'id de transaction type #a revoir
+        '404':
+          description: resource not found id of transaction not found
+        '401':
+          description:  unauthorized
+        '500':
+          description: Internal Server Error
+     security:
+        - bearerAuth: []
+          #edit transactions infos
+   /transactions/{transactionId}/:
+    put:
+      description: Modify the category of a single transaction
+      summary: Modify the category of a single transaction
+      tags: 
+      - user transaction
+      parameters:
+      - name: transactionId
+        in: path
+        description: ID of the the transaction
+        required: true
+        schema:
+         type: integer
+      - name: Authorization
+        in: header
+        description: Attach Bearer JWT token
+        schema:
+         type: string
+        required: true
+    
+        #to treat all manipulation add delete modify we can use put method 
+        #with request body that contains the elements of a transaction
+        #that we might modify 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Category:
+                  description: The transaction category
+                  type: string
+                Note:
+                  description: A note on the transaction
+                  type: string
+                TransactionDescription:
+                  description: The transaction's description field
+                  type: string
+                   
+             # required:
+              #  - name
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Transaction category  updated successfully
+        '201':
+          description: new transaction have been created after the update 
+        '204':
+           description:  No content No additional content to send back 
+         #to veify 
+        '400':
+          description: Bad request. User ID/ transaction ID must be an integer and larger than 0.
+        '401':
+          description:  user unauthorized to make such a modification 
+        '404':
+          description:  transaction information  not found ,note id not found 
+        '500':
+          description: Internal Server Error
+   
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      
