@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# Project #13 - Argent Bank API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This codebase contains the code needed to run the frontend for Argent Bank.
 
-## Available Scripts
+## Getting Started
+To install this project you need to clone the backend repositry first 
 
-In the project directory, you can run:
+Link : https://github.com/kenza15a/Project-13-Bank-API
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
+GitHub clone
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+A code editor
 
-### `npm test`
+example vscode link for download https://code.visualstudio.com/download
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Argent Bank uses [create react app](https://create-react-app.dev/)
 
-### `npm run build`
+## Instructions 
+backend instractions are here :
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+https://github.com/kenza15a/Project-13-Bank-API/blob/master/README.md
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+frontend instructions are the following:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Fork this repo
+2. Clone the repo onto your computer
+3. Open a terminal window in the cloned project
 
-### `npm run eject`
+# Install dependencies
+### npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## launch the project 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### npm run start 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Notice 
+start the backend server following the backed instarctions first 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## API Documentation
 
-## Learn More
+To learn more about how the API works, once you have started your local environment,
+you can visit: http://localhost:3001/api-docs
+## 2 nd phase transactions :
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+to visualize the documentation of the sencond part 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+in the swagger editor 
 
-### Code Splitting
+link : https://editor-next.swagger.io/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+import the yaml file in src/swagger.YAML 
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+you can also install the visual studio plugin swagger viewer 
+download link: https://marketplace.visualstudio.com/items?itemName=Arjun.swagger-viewer
