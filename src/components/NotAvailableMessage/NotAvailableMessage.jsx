@@ -6,7 +6,7 @@ function NotAvailableMessage() {
       <div className="main-message">
         <h1>There was an error try again later</h1>
         <h2>
-          Go Back to <a href="/homePage">Home Page</a>
+          Go Back to <a href="/">Home Page</a>
         </h2>
       </div>
     </>

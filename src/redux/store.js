@@ -1,6 +1,6 @@
 import auth from './slices/authSlice'
 import profileSlice from './slices/profileSlice'
-//import edit from './editformslice'
+
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 

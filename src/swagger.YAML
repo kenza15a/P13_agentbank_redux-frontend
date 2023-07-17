@@ -2,7 +2,7 @@ openapi: 3.0.0
 
 info:
   title: Transactions api agent bank
-  description: the transaction part
+  description: The second part of the agent bank project :Transactions 
   version: 1.0.0
   contact:
     name: Filali kenza
@@ -18,8 +18,8 @@ paths:
     get:
       tags:
       - user transactions
-      description: Describe this route
-      summary: get the transaction of a user 
+      description: get all the transactions of the current month
+      summary: get the transactions of a user 
       parameters:
        - name: userId
          in: path
@@ -52,8 +52,8 @@ paths:
         '200':
           description: Account transactions retrieved successfully
         '400':
-         description: Bad request.
-        '401': #response with schema example
+         description: Bad request. #bad formatted user id 
+        '401': 
           description:  unauthorized
           content:
             application/json:
@@ -81,8 +81,10 @@ paths:
                     type: string  
    /transactions/{transactionId}:  
     get:
+     tags:
+      - user transactions
      description: Details of a single transaction 
-     summary: get the details of a single transaction 
+     summary: get the details of a single transaction using its id 
      
      parameters:
      - name: transactionId
@@ -103,7 +105,7 @@ paths:
           description: Transaction's info  retrieved successfully
         
         '400':
-          description: Bad request l'id de transaction type #a revoir
+          description: Bad request :the format of transaction id is not allowed (must be an integer )
         '404':
           description: resource not found id of transaction not found
         '401':
@@ -112,17 +114,19 @@ paths:
           description: Internal Server Error
      security:
         - bearerAuth: []
-          #edit transactions infos
+    #edit transactions infos
+    #put will allow us to create modify or delete an information of one transaction 
    /transactions/{transactionId}/:
     put:
-      description: Modify the category of a single transaction
-      summary: Modify the category of a single transaction
       tags: 
-      - user transaction
+      - update transactions infos
+      description: Update an information of a single transaction
+      summary: Update, delete or add an information on a single transaction 
+      
       parameters:
       - name: transactionId
         in: path
-        description: ID of the the transaction
+        description: the ID of the transaction
         required: true
         schema:
          type: integer
@@ -135,7 +139,8 @@ paths:
     
         #to treat all manipulation add delete modify we can use put method 
         #with request body that contains the elements of a transaction
-        #that we might modify 
+        #that we might update  
+        #the request body will not be included in the url 
       requestBody:
         required: true
         content:
@@ -153,24 +158,19 @@ paths:
                   description: The transaction's description field
                   type: string
                    
-             # required:
-              #  - name
+          
       security:
         - bearerAuth: []
       responses:
         '200':
-          description: Transaction category  updated successfully
-        '201':
-          description: new transaction have been created after the update 
-        '204':
-           description:  No content No additional content to send back 
-         #to veify 
+          description: Transaction information updated successfully
+       
         '400':
-          description: Bad request. User ID/ transaction ID must be an integer and larger than 0.
+          description: Bad request.  transaction ID must be an integer and bigger than 0 / bad information format category , note ,Transaction description 
         '401':
           description:  user unauthorized to make such a modification 
         '404':
-          description:  transaction information  not found ,note id not found 
+          description:  transaction ID /  information  not found ,note id not found 
         '500':
           description: Internal Server Error
    

@@ -130,17 +130,6 @@ body {
     display: flex;
     flex-direction: column;
 }
-/*not available*/
-.message-container {
-    display: grid;
-    width: 80%;
-    height: 70%;
-
-}
-
-.message {
-    place-self: center;
-}
 
 @media (min-width: 920px) {
     .features {

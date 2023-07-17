@@ -12,7 +12,7 @@ const login = async (userData) => {
 
   if (response.data) {
 
-    //if remeber me is checked we store token in localstorage else we store it in sessionStorage
+    //if remember me is checked we store token in localstorage else we store it in sessionStorage
     let token = "";
     if (user.isRemeberMe) {
       token = localStorage.setItem('user', JSON.stringify(response.data.body.token))

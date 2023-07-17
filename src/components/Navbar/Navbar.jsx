@@ -35,20 +35,20 @@ function Navbar() {
   const handleSignout = () => {
     dispatch(logout());
     dispatch(reset());
-    navigate("/homepage");
+    navigate("/");
   };
   const handleUserSignIn = () => {
     if (user && isConnected) {
-      navigate("/user-page");
+      navigate("/profile");
     } else {
-      navigate("/sign-in");
+      navigate("/login");
     }
   };
 
   return (
     <>
       <nav className="main-nav">
-        <a className="main-nav-logo" href="/homepage">
+        <a className="main-nav-logo" href="/">
           <img
             className="main-nav-logo-image"
             src={logo}
@@ -58,7 +58,7 @@ function Navbar() {
         </a>
         {isConnected && (
           <div>
-            <Link className="main-nav-item" to="/user-page">
+            <Link className="main-nav-item" to="/profile">
               {firstName}
             </Link>
             <button

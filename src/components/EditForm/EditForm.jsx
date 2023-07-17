@@ -14,7 +14,7 @@ function EditForm() {
   useEffect(() => {
     dispatch(getProfileData());
   }, [dispatch]);
-  const { firstName, lastName, isEditVisible,isSuccess } = useSelector(
+  const { firstName, lastName, isEditVisible } = useSelector(
     (state) => state.profileSlice
   );
 
@@ -31,12 +31,6 @@ function EditForm() {
     console.log(userData);
     event.preventDefault();
     dispatch(updateprofile(userData));
-    //A eviter
-  /*if (isSuccess) {
-      dispatch(getProfileData());
-    }*/
-
-    // }
   };
   const onChange = (e) => {
     console.log(e.target.value);

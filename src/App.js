@@ -13,11 +13,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<PrivateRoutes />}>
-            <Route path="/user-page" element={<UserAccounts />} exact />
+            <Route path="/profile" element={<UserAccounts />} exact />
           </Route>
           <Route index element={<HomePage />} />
-          <Route path="/homepage" element={<HomePage />} />
-          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<SignInPage />} />
           <Route path="/*" element={<NotAvailable />} />
         </Routes>
       </BrowserRouter>

@@ -1,29 +1,21 @@
 import React from "react";
 import "./AccountHeader.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import EditForm from "../EditForm/EditForm";
 import {
   getProfileData,
   setEditVisible,
 } from "../../redux/slices/profileSlice";
 function AccountHeader() {
-  //const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProfileData());
   }, [dispatch]);
 
-  const {
-    firstName,
-    lastName,
-    isEditVisible,
-    isSuccess,
-    profileMessage,
-    isLoading,
-  } = useSelector((state) => state.profileSlice);
+  const { firstName, lastName, isEditVisible, isSuccess, isLoading } =
+    useSelector((state) => state.profileSlice);
   const toggleVisibility = () => {
-    // setIsVisible(!isVisible);
     dispatch(setEditVisible());
   };
   return (

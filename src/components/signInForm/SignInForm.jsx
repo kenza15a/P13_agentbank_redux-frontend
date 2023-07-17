@@ -13,7 +13,7 @@ export default function SignInForm() {
     remeberMe: false,
   });
   const [remeberMe, setRemeberMe] = useState(false);
-
+  const [showMessage, setShowMessage] = useState(false);
   const form = useSelector((state) => state.form);
   const { user, isLoadig, message, errors } = useSelector(
     (state) => state.auth
@@ -23,11 +23,11 @@ export default function SignInForm() {
   useEffect(() => {
     //server answer 400 OR 404
     if (message.length > 0) {
-      alert(message);
+      setShowMessage(true)
     }
     //200 SERVER ANSWER
     if (user) {
-      navigate("/user-page");
+      navigate("/profile");
     }
     dispatch(reset());
   }, [user, isLoadig, message, errors, navigate, dispatch]);
@@ -85,12 +85,10 @@ export default function SignInForm() {
 
     if (Object.keys(errors).length > 0) {
       dispatch(setErrors(errors));
-   //display the error
+      //display the error
       console.log(errors);
-      navigate("/sign-in");
+      navigate("/login");
     } else {
-    
-
       dispatch(login(userData));
     }
   };
@@ -135,6 +133,14 @@ export default function SignInForm() {
           Sign In
         </button>
       </form>
+      <div>
+    {showMessage && (
+      <div className="error-message">
+<p className="title">There have been an error!</p>
+        <p>UserName or password Not correct </p>
+      </div>
+    )}
+  </div>
     </>
   );
 }

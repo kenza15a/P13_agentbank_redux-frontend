@@ -35,3 +35,18 @@
     padding: 5px;
     font-size: 1.2rem;
 }
+
+
+@media (max-width: 640px) { 
+    .user-infos {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+
+  
+    }

@@ -8,7 +8,7 @@ const initialState = {
     isLoading: false,
     isSuccess: false,
     profileMessage: '',
-    updateError:'',
+    updateError: '',
     isEditVisible: false
     //EROR
 }
@@ -40,7 +40,7 @@ export const updateprofile = createAsyncThunk('profile/updateprofile', async (us
             (error.response && error.response.data && error.response.data.message) ||
             error.message ||
             error.toString()
-       
+
         return thunkAPI.rejectWithValue(message)
     }
 });
@@ -83,7 +83,7 @@ export const profileSlice = createSlice({
             .addCase(updateprofile.pending, (state) => {
                 state.isLoading = true;
                 state.updateError = "Update pending...."
-            
+
             })
             .addCase(updateprofile.rejected, (state) => {
                 state.updateError = "fail to update"

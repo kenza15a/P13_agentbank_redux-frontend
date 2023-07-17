@@ -18,11 +18,8 @@ const initialState = {
 export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
 
     try {
-        
-        //Treat status senarios
-        /*if(response.staus===200){
-         
-        }*/
+
+
         return await authService.login(user)
 
     } catch (error) {
