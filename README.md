@@ -2,7 +2,7 @@
 
 This codebase contains the code needed to run the frontend for Argent Bank.
 
-## Available Scripts
+
 
 ## Getting Started
 
