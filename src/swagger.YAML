@@ -51,6 +51,27 @@ paths:
       responses:
         '200':
           description: Account transactions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  table:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        date:
+                          type: string
+                          format: date
+                        description:
+                          type: string
+                        Amount:
+                          type: integer
+                        balance:
+                          type: integer
         '400':
          description: Bad request. #bad formatted user id 
         '401': 
@@ -67,18 +88,13 @@ paths:
                   message:
                    type: string
                   date:
-                   type: object
+                   type: string
+                   format: date
         '404':
          description: user id not found
         '500':
           description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string  
+         
    /transactions/{transactionId}:  
     get:
      tags:
@@ -103,6 +119,28 @@ paths:
      responses:
         '200':
           description: Transaction's info  retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  date:
+                   type: string
+                   format: date
+                  description:
+                   type: string
+                  Amount:
+                   type: integer
+                  Balance:
+                   type: integer
+                  Type:
+                   type: string
+                  Category:
+                   type: string
+                  Note:
+                   type: string
         
         '400':
           description: Bad request :the format of transaction id is not allowed (must be an integer )
@@ -164,6 +202,28 @@ paths:
       responses:
         '200':
           description: Transaction information updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  date:
+                   type: string
+                   format: date
+                  description:
+                   type: string
+                  Amount:
+                   type: integer
+                  Balance:
+                   type: integer
+                  Type:
+                   type: string
+                  Category:
+                   type: string
+                  Note:
+                   type: string
        
         '400':
           description: Bad request.  transaction ID must be an integer and bigger than 0 / bad information format category , note ,Transaction description 

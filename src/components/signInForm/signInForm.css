@@ -33,12 +33,14 @@
     background-color: #00bc77;
     color: #fff;
 }
-.error-message{
+
+.error-message {
     font-family: Avenir, Helvetica, Arial, sans-serif;
-   font-size: 1rem;
+    font-size: 1rem;
     color: BLACK;
 }
-.error-message .title{
-   font-size: 1.2rem;
-    color: #00bc77;
+
+.error-message .title {
+    font-size: 1.2rem;
+    color: #bc0000;
 }
